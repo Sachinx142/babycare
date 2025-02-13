@@ -97,7 +97,7 @@ function about(req, res) {
 
 async function service(req, res) {
     res.render("service",{
-        title:`${process.env.SITE_NAME} - Service`,
+        title:`${process.env.SITE_NAME} - Services`,
         service : await getService(),
         session:req.session,
     })
