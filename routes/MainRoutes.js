@@ -2,7 +2,7 @@ const MainRouter = require("express").Router()
 const encoder = require("../middleware/bodyParser")
 const {home, about, service, program, event, blog, team, testimonial, contactUs,contactusStore,showService,showProgram,showBlog,showEvent,newsletter,newsletterConfirmation} = require("../controllers/main/index")
 
-
+  
 MainRouter.get("",home)
 MainRouter.get("/about",about)
 MainRouter.get("/service",service)
