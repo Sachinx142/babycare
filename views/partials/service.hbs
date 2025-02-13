@@ -9,17 +9,18 @@
         <div class="g-5">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    {{#each services}}
+                    {{#each service}} <!-- Loop over the services -->
                     <div class="swiper-slide">
-                        <div class="text-center border-primary border bg-white service-item">
-                            <div class="service-content d-flex align-items-center justify-content-center p-4">
-                                <div class="service-content-inner">
-                                    <div class="p-4">{{{icon}}}</div> <!-- Triple braces for raw HTML -->
-                                    <a href="/service/{{_id}}" class="h5">{{name}}</a>
-                                    <p class="my-3 admin-description">{{shortDescription}}</p>
-                                    <a href="/service/{{_id}}" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">
-                                        Read More
-                                    </a>
+                        <div class="wow fadeIn" data-wow-delay="0.1s">
+                            <div class="text-center border-primary border bg-white service-item">
+                                <div class="service-content d-flex align-items-center justify-content-center p-4">
+                                    <div class="service-content-inner">
+                                        <div class="p-4">{{{icon}}}</div>
+                                        <a href="/service/{{_id}}" class="h5">{{name}}</a>
+                                        <p class="my-3 admin-description">{{shortDescription}}</p>
+                                        <a href="/service/{{_id}}" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read
+                                            More</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -29,10 +30,38 @@
             </div>
             {{#if (showButtonHelper 'Services' title)}}
             <div class="text-center wow fadeIn mt-5 mb-3" data-wow-delay="0.1s">
-                <a href="/service" class="btn btn-primary px-5 py-3 text-white btn-border-radius">Vew All Services</a>
+                <a href="/service" class="btn btn-primary px-5 py-3 text-white btn-border-radius">View All Services</a>
             </div>
             {{/if}}
         </div>
     </div>
 </div>
 <!-- Service End -->
+
+<!-- Testimonials Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center wow fadeIn" data-wow-delay="0.1s">
+            <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
+                What Our Clients Say</h4>
+            <h1 class="mb-5 display-3">Testimonials</h1>
+        </div>
+        <div class="row">
+            {{#each testimonials}} <!-- Loop over testimonials -->
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeIn" data-wow-delay="0.3s">
+                <div class="testimonial-item border bg-white p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <img class="img-fluid rounded-circle" src="{{image}}" alt="{{name}}" style="width: 50px; height: 50px;">
+                        <div class="ps-3">
+                            <h5>{{name}}</h5>
+                            <p class="m-0">{{designation}}</p>
+                        </div>
+                    </div>
+                    <p>"{{message}}"</p>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<!-- Testimonials End -->
