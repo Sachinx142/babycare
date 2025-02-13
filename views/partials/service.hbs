@@ -11,17 +11,15 @@
                 <div class="swiper-wrapper">
                     {{#each services}}
                     <div class="swiper-slide">
-                        <div class="wow fadeIn" data-wow-delay="0.1s">
-                            <div class="text-center border-primary border bg-white service-item">
-                                <div class="service-content d-flex align-items-center justify-content-center p-4">
-                                    <div class="service-content-inner">
-                                        <div class="p-4">{{{icon}}}</div>
-                                        <a href="/service/{{_id}}" class="h5">{{name}}</a>
-                                        <p class="my-3 admin-description">{{shortDescription}}</p>
-                                        <a href="/service/{{_id}}"
-                                            class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read
-                                            More</a>
-                                    </div>
+                        <div class="text-center border-primary border bg-white service-item">
+                            <div class="service-content d-flex align-items-center justify-content-center p-4">
+                                <div class="service-content-inner">
+                                    <div class="p-4">{{{icon}}}</div> <!-- Triple braces for raw HTML -->
+                                    <a href="/service/{{_id}}" class="h5">{{name}}</a>
+                                    <p class="my-3 admin-description">{{shortDescription}}</p>
+                                    <a href="/service/{{_id}}" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">
+                                        Read More
+                                    </a>
                                 </div>
                             </div>
                         </div>
