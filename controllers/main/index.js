@@ -88,10 +88,13 @@ async function home(req, res) {
     })
 }
 
-function about(req, res) {
+async function about(req, res) {
     res.render("about", { 
-        title:`${process.env.SITE_NAME} - About Us`,
-        session:req.session,
+        title: `${process.env.SITE_NAME} - About Us`,
+        service: await getService(),      // Fetch Services
+        teams: await getTeams(),          // Fetch Team Members
+        testimonials: await getTestimonials(), // Fetch Testimonials
+        session: req.session,
     })
 }
 

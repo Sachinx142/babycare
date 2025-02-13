@@ -18,8 +18,6 @@ hbs.registerHelper("showButtonHelper", (value1, value2) => {
    return value1 === value2 ? false : true
 })
 
-
-
 hbs.registerHelper("isSuperAdmin",(role)=>{
    return role === "Super Admin" ? true : false
 })
