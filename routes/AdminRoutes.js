@@ -83,17 +83,23 @@ AdminRouter.get("/contactus/delete/:_id", isSuperAdmin, deleteContactUs);
 AdminRouter.get("/contactus/show/:_id", isLogin, showContactUs);
 
 // User Management Routes
-AdminRouter.get("/user", isSuperAdmin, homeUser);
-AdminRouter.get("/user/create", isSuperAdmin, createUser);
-AdminRouter.post("/user/store", isSuperAdmin, encoder, storeUser);
-AdminRouter.get("/user/edit/:_id", isSuperAdmin, editUser);
-AdminRouter.post("/user/update/:_id", isSuperAdmin, encoder, updateUser);
-AdminRouter.get("/user/delete/:_id", isSuperAdmin, deleteUser);
-AdminRouter.get("/user/login", loginUser);
-AdminRouter.post("/user/login", encoder, loginUserStore);
-AdminRouter.get("/user/update-profile", isSuperAdmin, updateProfile);
-AdminRouter.post("/user/update-profile", encoder, updateProfileStore);
-AdminRouter.get("/user/logout", logout);
+AdminRouter.get("/user", isSuperAdmin, homeUser)
+AdminRouter.get("/user/create", isSuperAdmin, createUser)
+AdminRouter.post("/user/store", isSuperAdmin, encoder, storeUser)
+AdminRouter.get("/user/edit/:_id", isSuperAdmin, editUser)
+AdminRouter.post("/user/update/:_id", isSuperAdmin, encoder, updateUser)
+AdminRouter.get("/user/delete/:_id", isSuperAdmin, deleteUser)
+AdminRouter.get("/user/login", loginUser)
+AdminRouter.post("/user/login", encoder, loginUserStore)
+AdminRouter.get("/user/update-profile", isSuperAdmin, updateProfile)
+AdminRouter.post("/user/update-profile", encoder, updateProfileStore)
+AdminRouter.get("/user/logout", logout)
+AdminRouter.get("/user/forget-password-1", forgetPassword1)
+AdminRouter.post("/user/forget-password-1", encoder, forgetPassword1Store)
+AdminRouter.get("/user/forget-password-2", forgetPassword2)
+AdminRouter.post("/user/forget-password-2", encoder, forgetPassword2Store)
+AdminRouter.get("/user/forget-password-3", forgetPassword3)
+AdminRouter.post("/user/forget-password-3", encoder, forgetPassword3Store)
 
 // Password Recovery
 AdminRouter.get("/user/forget-password-1", forgetPassword1);

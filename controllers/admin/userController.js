@@ -21,7 +21,7 @@ async function homeUser(req, res) {
         let data = await User.find().sort({ _id: -1 })
         res.render("admin/user/index", {
             title: "Admin - User",
-            session:req.session,
+            session: req.session,
             data: data
         })
     } catch (error) {
@@ -35,7 +35,7 @@ function createUser(req, res) {
         title: "Admin - Create User",
         errorMessage: {},
         data: {},
-        session:req.session,
+        session: req.session
     })
 }
 
@@ -69,7 +69,7 @@ async function storeUser(req, res) {
                             title: "Admin - Create User",
                             errorMessage: errorMessage,
                             data: data,
-                            session:req.session,
+                            session: req.session,
                         })
                     }
                 }
@@ -82,7 +82,7 @@ async function storeUser(req, res) {
                     password: "Invalid Password. It Must Container at least 1 upper case and 1 lower case alphabet, 1 digit, should not contain any space and length must be 8-100"
                 },
                 data: data,
-                session:req.session,
+                session: req.session,
             })
     }
     else
@@ -92,7 +92,7 @@ async function storeUser(req, res) {
                 password: "Password and Confirm Password Doesn't Matched"
             },
             data: data,
-            session:req.session,
+            session: req.session,
         })
 }
 
@@ -104,7 +104,7 @@ async function editUser(req, res) {
                 title: "Admin - Update User",
                 errorMessage: {},
                 data: data,
-                session:req.session,
+                session: req.session,
             })
         }
         else {
@@ -126,7 +126,6 @@ async function updateUser(req, res) {
             data.phone = req.body.phone
             data.role = req.body.role
             data.active = req.body.active
-            data.sortOrder = req.body.sortOrder
             await data.save()
         }
         res.redirect("/admin/user")
@@ -143,72 +142,14 @@ async function updateUser(req, res) {
             title: "Admin - Update User",
             errorMessage: errorMessage,
             data: data,
-            session:req.session,
+            session: req.session,
         })
     }
 }
 
-async function deleteUser(req, res) {
-    try {
-        let data = await User.findOne({ _id: req.params._id })
-        if (data) {
-            await data.deleteOne()
-        }
-        res.redirect("/admin/user")
-    } catch (error) {
-        console.log(error)
-        res.redirect("/admin/user")
-    }
-}
-
-function loginUser(req, res) {
-    res.render("admin/user/login", {
-        title: "Admin - Login",
-        session:req.session,
-        errorMessage: ""
-    })
-}
-async function loginUserStore(req, res) {
-    try {
-        let data = await User.findOne({
-            $or: [
-                { username: req.body.username },
-                { email: req.body.username }
-            ]
-        })
-        if(data && await bcrypt.compare(req.body.password, data.password)){
-            req.session.login = true
-            req.session.name = data.name
-            req.session.userid = data._id
-            req.session.role = data.role
-            var time = 86400000  //One Day
-            req.session.cookie.expires = new Date(Date.now() + time)
-            req.session.cookie.maxAge = time
-            res.redirect("/admin")
-            console.log(req.session);
-
-        }
-        else {
-            res.render("admin/user/login", {
-                title: "Admin - Login",
-                errorMessage: "Invalid Username or Passwords",
-                session:req.session,
-            })
-        }
-    } catch (error) {
-        console.log(error)
-        res.render("admin/user/login", {
-            title: "Admin - Login",
-            errorMessage: "Something Went Wrong",
-            session:req.session,
-        })
-    }
-}
-
-//Update User
 async function updateProfile(req, res) {
     try {
-        var data = await User.findOne({ _id: req.session.userid })
+        let data = await User.findOne({ _id: req.session.userid })
         if (data) {
             res.render("admin/user/update-profile", {
                 title: "Admin - Update User",
@@ -225,8 +166,6 @@ async function updateProfile(req, res) {
         res.redirect("/admin")
     }
 }
-
-
 
 async function updateProfileStore(req, res) {
     try {
@@ -257,18 +196,73 @@ async function updateProfileStore(req, res) {
     }
 }
 
+async function deleteUser(req, res) {
+    try {
+        let data = await User.findOne({ _id: req.params._id })
+        if (data) {
+            await data.deleteOne()
+        }
+        res.redirect("/admin/user")
+    } catch (error) {
+        console.log(error)
+        res.redirect("/admin/user")
+    }
+}
+
+function loginUser(req, res) {
+    res.render("admin/user/login", {
+        title: "Admin - Login",
+        errorMessage: "",
+        session: req.session,
+    })
+}
+async function loginUserStore(req, res) {
+    try {
+        let data = await User.findOne({
+            $or: [
+                { username: req.body.username },
+                { email: req.body.username }
+            ]
+        })
+        if (data && await bcrypt.compare(req.body.password, data.password)) {
+            req.session.login = true
+            req.session.name = data.name
+            req.session.userid = data._id
+            req.session.role = data.role
+            var time = 86400000  //One Day
+            req.session.cookie.expires = new Date(Date.now() + time)
+            req.session.cookie.maxAge = time
+            res.redirect("/admin")
+        }
+        else {
+            res.render("admin/user/login", {
+                title: "Admin - Login",
+                errorMessage: "Invalid Username or Passwords",
+                session: req.session,
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        res.render("admin/user/login", {
+            title: "Admin - Login",
+            errorMessage: "Something Went Wrong",
+            session: req.session,
+        })
+    }
+}
+
+
 async function logout(req, res) {
     req.session.destroy()
     res.redirect("/admin/user/login")
 }
 
 function forgetPassword1(req, res) {
-  res.render("admin/user/forget-password1", {
-    title: "Admin - Reset Password",
-    errorMessage: "",
-  });
+    res.render("admin/user/forget-password1", {
+        title: "Admin - Reset Password",
+        errorMessage: ""
+    })
 }
-
 async function forgetPassword1Store(req, res) {
     try {
         let data = await User.findOne({
@@ -285,12 +279,12 @@ async function forgetPassword1Store(req, res) {
             mailer.sendMail({
                 from: process.env.MAIL_SENDER,
                 to: data.email,
-                subject: "OTP for Password Reset : Team Babycare",
+                subject: `OTP for Password Reset : Team ${process.env.SITE_NAME}`,
                 text: `
                         Hello ${data.name}
                         OTP for Password is ${otp}
                         Please Never Share OTP with anyone
-                        Team : Babycare
+                        Team : ${process.env.SITE_NAME}
                     `
             }, (error) => {
                 if (error)
@@ -317,8 +311,6 @@ function forgetPassword2(req, res) {
         errorMessage: ""
     })
 }
-
-
 async function forgetPassword2Store(req, res) {
     try {
         let data = await User.findOne({
@@ -328,13 +320,13 @@ async function forgetPassword2Store(req, res) {
             ]
         })
         if (data) {
-           if(data.otp == req.body.otp)
-            res.redirect("forget-password-3")
-          else 
-           res.render("admin/user/forget-password2", {
-            title: "Admin - Reset Password",
-            errorMessage: "Invalid OTP"
-           })  
+            if (data.otp == req.body.otp)
+                res.redirect("forget-password-3")
+            else
+                res.render("admin/user/forget-password2", {
+                    title: "Admin - Reset Password",
+                    errorMessage: "Invalid OTP"
+                })
         }
         else {
             res.render("admin/user/forget-password2", {
@@ -354,8 +346,6 @@ function forgetPassword3(req, res) {
         errorMessage: ""
     })
 }
-
-
 async function forgetPassword3Store(req, res) {
     try {
         let data = await User.findOne({
@@ -404,11 +394,6 @@ async function forgetPassword3Store(req, res) {
     }
 }
 
-
-
-
-
-
 module.exports = {
     homeUser: homeUser,
     createUser: createUser,
@@ -418,13 +403,13 @@ module.exports = {
     deleteUser: deleteUser,
     loginUser: loginUser,
     loginUserStore: loginUserStore,
-    updateProfile:updateProfile,
-    updateProfileStore,updateProfileStore,
-    logout:logout,
-    forgetPassword1:forgetPassword1,
-    forgetPassword1Store:forgetPassword1Store,
-    forgetPassword2:forgetPassword2,
-    forgetPassword2Store:forgetPassword2Store,
-    forgetPassword3:forgetPassword3,
-    forgetPassword3Store:forgetPassword3Store
+    updateProfile: updateProfile,
+    updateProfileStore: updateProfileStore,
+    logout: logout,
+    forgetPassword1: forgetPassword1,
+    forgetPassword1Store: forgetPassword1Store,
+    forgetPassword2: forgetPassword2,
+    forgetPassword2Store: forgetPassword2Store,
+    forgetPassword3: forgetPassword3,
+    forgetPassword3Store: forgetPassword3Store,
 }
