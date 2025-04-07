@@ -18,7 +18,7 @@
                         class="fa fa-envelope fs-5"></i> <span class="float-end">Newsletter</span></a>
         <a href="/admin/contactus" class="list-group-item list-group-item-action active mb-1" aria-current="true"><i
                         class="fa fa-phone fs-5"></i> <span class="float-end">ContactUs</span></a>
-        {{#if (isSuperAdmin  ../session.role) }}
+        {{#if (isSuperAdmin  session.role) }}
         <a href="/admin/user" class="list-group-item list-group-item-action active mb-1" aria-current="true"><i
                         class="fa fa-user fs-5"></i> <span class="float-end">User</span></a>
         {{/if}}
